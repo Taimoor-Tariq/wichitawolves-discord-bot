@@ -1,0 +1,25 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "Wolves Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wichita-Wolves/discord-bot.git"
+  },
+  "author": "Taimoor Tariq",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wichita-Wolves/discord-bot/issues"
+  },
+  "homepage": "https://github.com/Wichita-Wolves/discord-bot#readme",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.17.1",
+    "enmap": "^5.6.1"
+  }
+}
