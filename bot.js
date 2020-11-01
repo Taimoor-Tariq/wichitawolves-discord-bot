@@ -2,14 +2,13 @@ const active = true;
 
 const Discord = require('discord.js');
 const fs = require('fs');
-const Enmap = require('enmap');
 require('dotenv-flow').config();
 
 const client = new Discord.Client();
 
 if (active) {
 	console.log(` \nLoading Commands and events:\n `)
-	client.commands = new Enmap();
+	client.commands = {};
 
 	// Getting Events
 	fs.readdir('./events/', async (err, files) => {
@@ -34,7 +33,7 @@ if (active) {
 			let props = require(`./commands/${file}`);
 			let cmdName = file.split('.')[0];
 			console.log(` - Loaded → ${cmdName}`);
-			client.commands.set(cmdName, props);
+			client.commands[cmdName] = props;
 		});
 		console.log(' ')
 	});

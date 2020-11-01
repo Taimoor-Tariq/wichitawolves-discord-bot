@@ -106,7 +106,8 @@ module.exports = async (client, message) => {
 		.split(/ +/g);
 	const command = args.shift().toLocaleLowerCase();
 
-	const cmd = client.commands.get(command);
+	console.log(command)
+	const cmd = client.commands[command];
 	if (!cmd) return;
 
     cmd.run(client, message, args);
