@@ -1,24 +1,19 @@
-const serverStat = require('../Modules/server-stats.js');
-
-module.exports = async client => {
-	console.log(` \nLogged in as ${client.user.tag}!`);
-
-	// client.user.setStatus('invisible');
-	// client.user.setActivity("temporary Commands", { type: "listening"});
-
-	var rMa = [
-		["649150418106056704", "649158504762048532"],
+module.exports = (client) => {
+	var cache_messages = [
 		["649150426159251477", "649155799595352074"],
-		// ["675912404806402078", "675927231964512266"],
-		// ["649150418106056704", "649158504762048532"]
+		["821192367779610705", "821193620244660285"]
 	];
 
-	for (var i in rMa) {
-		await client.channels.get(rMa[i][0]).fetchMessage(rMa[i][1]);
-		if (client.channels.get(rMa[i][0]).messages.has(rMa[i][1])) {
-			console.log(`Message ${parseInt(i)+1} Cached!`);
-		}
-	}
+	let n = 0;
+	let prom = cache_messages.map(async m => {
+		await client.channels.cache.get(m[0]).messages.fetch(m[1]);
+		n++;
+	})
 
-	// serverStat.run(client);
+	Promise.all(prom).then(() => {
+		console.log(`Cached ${n} Messages`);
+		console.log(`Logged in as ${client.user.tag}!`);
+
+
+	});
 };

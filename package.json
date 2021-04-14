@@ -1,7 +1,7 @@
 {
   "name": "discord-bot",
   "version": "1.0.0",
-  "description": "Wolves Discord Bot",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node ."
@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/Wichita-Wolves/discord-bot#readme",
   "dependencies": {
-    "discord.js": "^12.4.1",
-    "dotenv-flow": "^3.2.0",
-    "express": "^4.17.1"
+    "axios": "^0.21.1",
+    "discord.js": "^12.5.3",
+    "dotenv-flow": "^3.2.0"
   }
 }

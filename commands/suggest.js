@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
 	console.log(` \n> ${user.tag} typed the 'suggest' command.`);
 	if (wsChannels.includes(message.channel.id)) {
   
-		let suggestions = client.channels.get("649150418412371974");
+		let suggestions = client.channels.cache.get("649150418412371974");
 	
 		if (args[0]) {
 			message.delete();
@@ -47,9 +47,6 @@ exports.run = (client, message, args) => {
 		}
 	
 		console.log(`> End of command entered by ${user.tag}\n `);
-	} else {
-		let botCommands = client.channels.get("644639457538211841");
-		// message.reply(`this command can only be typed in ${botCommands.toString()}`);
 	}
 };
   

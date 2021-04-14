@@ -1,31 +1,20 @@
 var cIDs = [];
-let excludeCats = [
-	"669745551025111053",
-	"649150413680934922",
-	"649150415937732608",
-	"661677749898838018",
-	"649150414456881193",
-	"649150414255816727",
-	"649150415463776258",
-	"649368204837257216",
-	"651283179230986250",
-	"649721484624789545"
-];
 
 module.exports = (client, message) => {
-	client.guilds.get("617434888555200576").channels.forEach(c => {
-		if(c.name == "announcements" && !excludeCats.includes(c.parentID)) cIDs.push(c.id);
+	client.guilds.cache.get("617434888555200576").channels.cache.forEach(c => {
+		if (c.name == "announcements") cIDs.push(c.id);
 	});
 
-	var ms = message.content;
-	var mImages = [];
-	var sections = ms.split("|");
+	let ms = message.content,
+		mImages = [],
+		sections = ms.split("|");
+
 	if (sections.length < 3) return message.reply("Format ```[PING ROLE] |\n[TITLE] |\n[ANNOUNCEMENT]```");
 
-	var men = sections[0].trim();
+	let men = sections[0].trim();
 	sections.shift();
 
-	ms = `­\n<:WichitaWolves:645375701507244043> __**${sections[0].trim()}**__\n`;
+	ms = `­\n<:WichitaWolves:797586550421848095> __**${sections[0].trim()}**__\n`;
 	sections.shift();
 
 	sections.forEach(e => {
@@ -51,7 +40,18 @@ module.exports = (client, message) => {
 			await msg.react("🇦");
 			await msg.react("⏹️");
 
-			const filter = (reaction, user) => ["1️⃣", "🇦", "⏹️"].includes(reaction.emoji.name) && user.id != "546324875271208970" && ["220161488516546561", "238037018431455233", "261490835646840833"].includes(user.id);
+			let wsUsers = {
+				ids: [
+					"220161488516546561", // Taimoor
+					"238037018431455233", // Dylan
+					"261490835646840833", // Sparks
+				],
+				raw: []
+			}
+
+			for (var u in wsUsers.ids) wsUsers.raw.push(`<@${wsUsers.ids[u]}>`);
+
+			const filter = (reaction, user) => ["1️⃣", "🇦", "⏹️"].includes(reaction.emoji.name) && user.id != "546324875271208970" && wsUsers.ids.includes(user.id);
 
 			await msg.awaitReactions(filter, { max: 1 })
 				.then(collected => {
@@ -59,7 +59,7 @@ module.exports = (client, message) => {
 
 					var approvedBy = "";
 					reaction.users.forEach(u => {
-						if ([`<@220161488516546561>`, `<@238037018431455233>`,`<@261490835646840833>`].includes(`${u}`)) return approvedBy = `${u}`;
+						if (wsUsers.raw.includes(`${u}`)) return approvedBy = `${u}`;
 					})
 
 					switch (reaction.emoji.name) {
@@ -91,10 +91,8 @@ module.exports = (client, message) => {
 					}
 				})
 				.catch(collected => {
-					// message.channel.send(`­\n> <@220161488516546561> FIX ME.\n­`)
 					msg.delete();
 					msg2.delete();
-					// console.log(collected);
 				});
 		});
 	});
